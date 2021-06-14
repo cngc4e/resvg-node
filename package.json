@@ -36,7 +36,7 @@
         "node": ">=10.7.0"
     },
     "prebuild-manifest": {
-        "host": "https://github.com/Tschrock/{name}/releases/download/v{version}/",
+        "host": "https://github.com/cngc4e/{name}/releases/download/v{version}/",
         "path": "native",
         "files": [
             {

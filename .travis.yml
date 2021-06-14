@@ -1,0 +1,28 @@
+dist: xenial
+
+language: rust
+rust:
+  - stable
+jobs:
+  allow_failures:
+    - rust: nightly
+  fast_finish: true
+
+install:
+  - nvm use stable
+  - npm i || true
+
+script:
+  - npm run build:ts
+  - npm run build:rs:release
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: "native/resvg-node-*.node"
+  skip_cleanup: true
+  draft: true
+  on:
+    branch: main
+        
