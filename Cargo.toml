@@ -15,12 +15,13 @@ crate-type = ["cdylib"]
 napi-build = "1.0.0-alpha.0"
 
 [dependencies]
-fontdb = "0.3.0"
+fontdb = "0.5.4"
 log = "0.4.11"
 napi = { version = "1.0.0-alpha.0", features = ["napi1", "serde-json"] }
 napi-derive = { version = "1.0.0-alpha.0" }
 png = "0.16"
-resvg = "0.12"
+resvg = "0.15"
 serde = { version = "1.0.117", features = ["derive"] }
 svgtypes = "0.5"
-usvg = "0.12"
+usvg = "0.15"
+tiny-skia = "0.5.1"

@@ -20,7 +20,7 @@ fn parse_color(value: &Option<String>) -> Result<Option<usvg::Color>, svgtypes::
     value.as_ref().map(|p| p.parse::<usvg::Color>()).transpose()
 }
 
-fn write_png(image: resvg::Image, out: impl std::io::Write) -> Result<(), png::EncodingError> {
+fn write_png(image: tiny_skia::Pixmap, out: impl std::io::Write) -> Result<(), png::EncodingError> {
     let ref mut w = std::io::BufWriter::new(out);
 
     let mut encoder = png::Encoder::new(w, image.width(), image.height());
@@ -51,7 +51,7 @@ fn render(ctx: napi::CallContext) -> napi::Result<napi::JsBuffer> {
 
     // Build the SVG options
     let svg_options = usvg::Options {
-        path: js_options.path.map(|p| p.into()),
+        resources_dir: js_options.path.map(|p| p.into()),
         dpi: js_options.dpi,
         font_family: js_options.font.default_font_family,
         font_size: js_options.font.default_font_size,
@@ -67,13 +67,24 @@ fn render(ctx: napi::CallContext) -> napi::Result<napi::JsBuffer> {
     let tree = usvg::Tree::from_str(&svg_data, &svg_options)
         .map_err(|e| napi::Error::from_reason(format!("{}", e)))?;
 
+    let size = js_options.fit_to.fit_to(tree.svg_node().size.to_screen_size())
+        .ok_or_else(|| napi::Error::from_reason("target size is zero".to_string()))?;
+
+    // Unwrap is safe, because `size` is already valid.
+    let mut pixmap = tiny_skia::Pixmap::new(size.width(), size.height()).unwrap();
+
+    if let Some(background) = background {
+        pixmap.fill(tiny_skia::Color::from_rgba8(
+            background.red, background.green, background.blue, 255));
+    }
+
     // Render the tree
-    let image = resvg::render(&tree, js_options.fit_to, background);
+    let image = resvg::render(&tree, js_options.fit_to, pixmap.as_mut());
 
     // Write the image data to a buffer
     let mut buffer: Vec<u8> = vec![];
-    if let Some(image) = image {
-        write_png(image, &mut buffer).map_err(|e| napi::Error::from_reason(format!("{}", e)))?;
+    if let Some(_) = image {
+        write_png(pixmap, &mut buffer).map_err(|e| napi::Error::from_reason(format!("{}", e)))?;
     }
 
     ctx.env
