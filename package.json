@@ -1,54 +1,62 @@
 {
-    "name": "resvg-node",
-    "version": "0.1.3",
-    "description": "`resvg` as a native node module.",
-    "keywords": [
-        "resvg",
-        "svg",
-        "rendering"
-    ],
-    "homepage": "https://github.com/Tschrock/resvg-node#readme",
-    "bugs": "https://github.com/Tschrock/resvg-node/issues",
-    "license": "MPL-2.0",
-    "author": "Tyler Schrock <tschrock123@gmail.com>",
-    "main": "lib/index.js",
-    "typings": "lib/index.d.ts",
-    "repository": "github:Tschrock/resvg-node",
-    "scripts": {
-        "prepare": "npm run build:ts",
-        "build": "npm run build:ts && npm run build:rs",
-        "build:release": "npm run build:ts && npm run build:rs:release",
-        "build:ts": "tsc",
-        "watch:ts": "tsc --watch",
-        "install": "node ./lib/prebuild.js -- --install --release",
-        "download": "node ./lib/prebuild.js -- --download",
-        "build:rs": "node ./lib/prebuild.js -- --build",
-        "build:rs:release": "node ./lib/prebuild.js -- --build --release"
-    },
-    "dependencies": {
-        "detect-libc": "^1.0.3"
-    },
-    "devDependencies": {
-        "@types/node": "^14.14.7",
-        "typescript": "^4.0.5"
-    },
-    "engines": {
-        "node": ">=10.7.0"
-    },
-    "prebuild-manifest": {
-        "host": "https://github.com/cngc4e/{name}/releases/download/v{version}/",
-        "path": "native",
-        "files": [
-            {
-                "name": "resvg-node-{version}-x64-linux-glibc.node",
-                "os": "linux",
-                "cpu": "x64"
-            },
-            {
-                "name": "resvg-node-{version}-x64-win32.node",
-                "os": "win32",
-                "cpu": "x64"
-            }
-        ]
-    }
+  "name": "@cngc4e/resvg-node",
+  "version": "0.1.3",
+  "description": "`resvg` as a native node module.",
+  "keywords": [
+    "resvg",
+    "svg",
+    "rendering"
+  ],
+  "homepage": "https://github.com/cngc4e/resvg-node#readme",
+  "bugs": {
+    "url": "https://github.com/cngc4e/resvg-node/issues"
+  },
+  "license": "MPL-2.0",
+  "author": "Tyler Schrock <tschrock123@gmail.com>",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cngc4e/resvg-node.git"
+  },
+  "scripts": {
+    "prepare": "npm run build:ts",
+    "build": "npm run build:ts && npm run build:rs",
+    "build:release": "npm run build:ts && npm run build:rs:release",
+    "build:ts": "tsc",
+    "watch:ts": "tsc --watch",
+    "install": "node ./lib/prebuild.js -- --install --release",
+    "download": "node ./lib/prebuild.js -- --download",
+    "build:rs": "node ./lib/prebuild.js -- --build",
+    "build:rs:release": "node ./lib/prebuild.js -- --build --release"
+  },
+  "dependencies": {
+    "detect-libc": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.7",
+    "typescript": "^4.0.5"
+  },
+  "engines": {
+    "node": ">=10.7.0"
+  },
+  "prebuild-manifest": {
+    "host": "https://github.com/cngc4e/resvg-node/releases/download/v{version}/",
+    "path": "native",
+    "files": [
+      {
+        "name": "resvg-node-{version}-x64-linux-glibc.node",
+        "os": "linux",
+        "cpu": "x64"
+      },
+      {
+        "name": "resvg-node-{version}-x64-win32.node",
+        "os": "win32",
+        "cpu": "x64"
+      }
+    ]
+  },
+  "directories": {
+    "lib": "lib"
+  }
 }
