@@ -5,15 +5,17 @@ resvg for Node.js
 
 ## Installation
 
+Configure npm to point to GitHub Packages (see `.npmrc` for an example).
+
 ```sh
-$ npm install resvg-node
+$ npm install @cngc4e/resvg-node
 ```
 
 ## Basic Usage
 
 The library currently exports a single function `render()` which will render a SVG string and return a Node.js Buffer containing the image data.
 ```js
-const { render } = require('resvg-node');
+const { render } = require('@cngc4e/resvg-node');
 
 const pngData = render('<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="red" /></svg>');
 // pngData: <Buffer 89 50 4e 47 0d 0a 1a 0a 00 00 00 0d 49 ...>
@@ -21,7 +23,7 @@ const pngData = render('<svg height="100" width="100" xmlns="http://www.w3.org/2
 
 You can also pass a second parameter with extra rendering and font options.
 ```js
-const { render } = require('resvg-node');
+const { render } = require('@cngc4e/resvg-node');
 
 const options = {
     background: "#ff00ff",
