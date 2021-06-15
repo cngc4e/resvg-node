@@ -89,6 +89,9 @@ pub struct JsOptions {
     ///
     /// Default: `None`
     pub background: Option<String>,
+
+    /// Crop options
+    pub crop: JsCropOptions,
 }
 
 impl Default for JsOptions {
@@ -103,6 +106,7 @@ impl Default for JsOptions {
             image_rendering: usvg::ImageRendering::default(),
             fit_to: usvg::FitTo::Original,
             background: None,
+            crop: JsCropOptions::default(),
         }
     }
 }
@@ -175,6 +179,42 @@ impl Default for JsFontOptions {
             cursive_family: "Comic Sans MS".to_string(),
             fantasy_family: "Impact".to_string(),
             monospace_family: "Courier New".to_string(),
+        }
+    }
+}
+
+/// The font options passed to `load_fonts()`.
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase", default, deny_unknown_fields)]
+pub struct JsCropOptions {
+    /// The rectangle's left x-axis coordinate.
+    ///
+    /// Default: 0
+    pub left: i32,
+
+    /// The rectangle's top y-axis coordinate.
+    ///
+    /// Default: 0
+    pub top: i32,
+
+    /// The rectangle's right x-axis coordinate. `None` targets the svg width.
+    ///
+    /// Default: None
+    pub right: Option<i32>,
+
+    /// The rectangle's bottom y-axis coordinate. `None` targets the svg height.
+    ///
+    /// Default: None
+    pub bottom: Option<i32>,
+}
+
+impl Default for JsCropOptions {
+    fn default() -> JsCropOptions {
+        JsCropOptions {
+            left: 0,
+            top: 0,
+            right: None,
+            bottom: None,
         }
     }
 }

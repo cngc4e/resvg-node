@@ -24,7 +24,7 @@ export async function cargoBuild(release = false): Promise<string> {
             if (line.startsWith('{') && line.endsWith('}')) lineInterface.emit('json', JSON.parse(line));
         });
         lineInterface.on('json', line => {
-            if (line.reason === 'compiler-artifact' && line.target && (line.package_id.startsWith(packageJson.name) || line.target.name === packageJson.name)) {
+            if (line.reason === 'compiler-artifact' && line.target && (line.package_id.startsWith(packageJson.baseName) || line.target.name === packageJson.baseName)) {
                 outputFile = line.filenames[0];
             }
             else if (line.reason === 'build-finished') {

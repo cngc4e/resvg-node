@@ -81,6 +81,16 @@ fn render(ctx: napi::CallContext) -> napi::Result<napi::JsBuffer> {
     // Render the tree
     let image = resvg::render(&tree, js_options.fit_to, pixmap.as_mut());
 
+    // Crop the SVG
+    let crop_rect = tiny_skia::IntRect::from_ltrb(
+        js_options.crop.left, js_options.crop.top,
+        js_options.crop.right.unwrap_or(size.width() as i32),
+        js_options.crop.bottom.unwrap_or(size.height() as i32));
+
+    if let Some(crop_rect) = crop_rect {
+        pixmap = pixmap.clone_rect(crop_rect).unwrap_or(pixmap);
+    }
+
     // Write the image data to a buffer
     let mut buffer: Vec<u8> = vec![];
     if let Some(_) = image {

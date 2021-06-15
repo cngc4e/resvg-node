@@ -1,6 +1,7 @@
 {
   "name": "@cngc4e/resvg-node",
-  "version": "0.1.3",
+  "baseName": "resvg-node",
+  "version": "0.1.4",
   "description": "`resvg` as a native node module.",
   "keywords": [
     "resvg",
@@ -41,7 +42,7 @@
     "node": ">=10.7.0"
   },
   "prebuild-manifest": {
-    "host": "https://github.com/cngc4e/resvg-node/releases/download/v{version}/",
+    "host": "https://github.com/cngc4e/{name}/releases/download/v{version}/",
     "path": "native",
     "files": [
       {

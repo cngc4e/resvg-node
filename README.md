@@ -114,6 +114,17 @@ Renders the SVG using the specified scale factor.
 { mode: "zoom", value: 1.5 }
 ```
 
+### Crop
+
+Crops the SVG to the specified rectangle boundaries. Sizes specified are relative to the SVG size after `FitTo` is applied.
+
+| Option | Default | Description                                                         |
+|--------|---------|---------------------------------------------------------------------|
+| left   | 0       | The rectangle's left x-axis coordinate.                             |
+| top    | 0       | The rectangle's top y-axis coordinate.                              |
+| right  | null    | The rectangle's right x-axis coordinate. (default: svg width)       |
+| bottom | null    | The rectangle's bottom y-axis coordinate. (default: svg height)     |
+
 ## Building
 Since `resvg` is a Rust library. you will need to install the [Rust toolchain][rust-install] to build the module. Pre-built binaries are also available for Windows and Linux and will be automatically downloaded when the module is installed.
 

@@ -6,7 +6,7 @@ import { family } from 'detect-libc';
 
 import packageJson from '../package.json';
 
-export const name = packageJson.name;
+export const name = packageJson.baseName;
 export const version = packageJson.version;
 export const manifest = packageJson["prebuild-manifest"];
 
@@ -35,7 +35,7 @@ export function findInstalledModule(): string {
         ...getCompatableRemotes().map(x => resolve(x.name))
     ].map(file => path.join(nativeInstallPath, file));
     const installedFiles = compatableFiles.filter(file => fs.existsSync(file));
-    if(installedFiles.length === 0) {
+    if (installedFiles.length === 0) {
         throw new Error("[resvg-node] The native module is not installed.");
     }
     else {
